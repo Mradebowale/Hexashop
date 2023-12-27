@@ -24,7 +24,7 @@ class Product(models.Model):
     rating = models.IntegerField()
 
     class Meta:
-        verbose_name_plural = 'Products'
+        verbose_name_plural = 'Product'
 
     def __str__(self):
         return self.name
