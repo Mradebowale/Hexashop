@@ -52,7 +52,7 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="{% url 'home' %}" class="logo">
                             <img src="{% static 'Store/assets/images/logo.png' %}">
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -112,17 +112,18 @@ https://templatemo.com/tm-571-hexashop
     <!-- ***** Product Area Starts ***** -->
     <section class="section" id="product">
         <div class="container">
+            {% comment %} {% for product in singleproduct %} {% endcomment %}
             <div class="row">
                 <div class="col-lg-8">
                 <div class="left-images">
-                    <img src="{% static 'Store/assets/images/single-product-01.jpg' %}" alt="">
-                    <img src="{% static 'Store/assets/images/single-product-02.jpg' %}" alt="">
+                    <img src="{{singleproduct.image.url}}" alt="">
+                    <img src="{{singleproduct.image.url}}" alt="">
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="right-content">
-                    <h4>{{product.name}}</h4>
-                    <span class="price">₦ {{product.price}}</span>
+                    <h4>{{singleproduct.name}}</h4>
+                    <span class="price">₦ {{singleproduct.price}}</span>
                     <ul class="stars">
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
@@ -132,7 +133,7 @@ https://templatemo.com/tm-571-hexashop
                     </ul>
                     <span>Product Details</span>
                     <div class="quote">
-                        <i class="fa fa-quote-left"></i><p>{{product.description}}</p>
+                        <i class="fa fa-quote-left"></i><p>{{singleproduct.description}}</p>
                     </div>
                     <div class="quantity-content">
                         <div class="left-content">
@@ -145,12 +146,41 @@ https://templatemo.com/tm-571-hexashop
                         </div>
                     </div>
                     <div class="total">
-                        <h4>Total: $210.00</h4>
-                        <div class="main-border-button"><a href="#">Pay Now</a></div>
+                        {% comment %} <h4>Total: $210.00</h4> {% endcomment %}
+                        <script src="https://js.paystack.co/v1/inline.js"></script>
+                <button class="btn btn-large btn-success" onclick="paywithPayStack()" id="django-paystack-button">Make Payment</button>
+        </div>
+    </div>
+</div>
+<script>
+    function paywithPayStack(){
+        let currency = "NGN";
+        let plan = "";
+        let ref = "{{ payment.ref }}"
+        let obj = {
+            key: "{{ paystack_public_key }}",
+            email: "{{ request.user.email }}",
+            amount: "{{ product.amount_value}}",
+            ref: ref,
+            callback: function(response){
+                window.location.href = "";
+            }
+        }
+        if (Boolean(currency)){
+            obj.currency = currency.toUpperCase()
+        }
+        if (Boolean(plan)){
+            obj.plan = plan;
+        }
+        var handler = PaystackPop.setup(obj);
+        handler.openIframe();
+    }
+</script>
                     </div>
                 </div>
             </div>
             </div>
+            {% comment %} {% endfor %} {% endcomment %}
         </div>
     </section>
     <!-- ***** Product Area Ends ***** -->

@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Category, Product
 from core.models import Payment
+from django.contrib import messages
+
 
 
 def homepage(request):
@@ -25,6 +27,29 @@ def initiate_payment(request, id):
         amount = product.price
         payment = Payment.objects.create(email=email, amount=amount)
         context = {"payment": payment, "product": product}
-        return render (request, "make_payment", context)
+        return render (request, "core/make_payment.html", context)
     context = {"product": product}
     return render (request, "Store/initiate_payment.html", context)
+
+
+
+# def initiate_payment(request):
+#     if request.method == "POST":
+#         pay_form = Paymentform(request.POST)
+#         if pay_form.is_valid():
+#             payment = pay_form.save()
+#             paystack_public_key = settings.PAYSTACK_PUBLIC_KEY
+#             return render(request, "core/make_payment.html", {'payment': payment, 'paystack_public_key': paystack_public_key})
+#     else:
+#         pay_form = Paymentform()
+#     return render(request, "core/initiate_payment.html", {"pay_form": pay_form})
+
+
+# def verify_payment(request, ref):
+#     payment = get_object_or_404(Payment, ref=ref)
+#     verified = payment.verify_payment()
+#     if verified:
+#         messages.success(request, "Verification Successful")
+#     else:
+#         messages.error(request, "Verification Failed")
+#     return redirect("initiate_payment")
