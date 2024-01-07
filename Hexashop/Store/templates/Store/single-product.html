@@ -158,9 +158,9 @@ https://templatemo.com/tm-571-hexashop
         let plan = "";
         let ref = "{{ payment.ref }}"
         let obj = {
-            key: "pk_test_7c9dd4452c7d81851515ac03c9e89109e74c51f9",
+            key: "{{ paystack_public_key }}",
             email: "{{ request.user.email }}",
-            amount: "{{ singleproduct.price}}",
+            amount: "{{ singleproduct.price}} ",
             ref: ref,
             callback: function(response){
                 window.location.href = "";

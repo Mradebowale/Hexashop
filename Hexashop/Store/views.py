@@ -23,7 +23,7 @@ def singlepage(request, id):
 def initiate_payment(request, id):
     product = Product.objects.get(id=id)
     if request.method == "POST":
-        email = request.user
+        email = request.user.email
         amount = product.price
         payment = Payment.objects.create(email=email, amount=amount)
         context = {"payment": payment, "product": product}
