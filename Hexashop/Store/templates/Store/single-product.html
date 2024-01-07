@@ -158,9 +158,9 @@ https://templatemo.com/tm-571-hexashop
         let plan = "";
         let ref = "{{ payment.ref }}"
         let obj = {
-            key: "{{ paystack_public_key }}",
+            key: "pk_test_7c9dd4452c7d81851515ac03c9e89109e74c51f9",
             email: "{{ request.user.email }}",
-            amount: "{{ product.amount_value}}",
+            amount: "{{ singleproduct.price}}",
             ref: ref,
             callback: function(response){
                 window.location.href = "";
@@ -176,12 +176,12 @@ https://templatemo.com/tm-571-hexashop
         handler.openIframe();
     }
 </script>
-                    </div>
+                    {% comment %} </div>
                 </div>
             </div>
-            </div>
+            </div> {% endcomment %}
             {% comment %} {% endfor %} {% endcomment %}
-        </div>
+        {% comment %} </div> {% endcomment %}
     </section>
     <!-- ***** Product Area Ends ***** -->
     

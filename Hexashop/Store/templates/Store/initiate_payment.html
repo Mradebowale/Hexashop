@@ -14,9 +14,9 @@
                 {% csrf_token %}
                 <h4>Make Payment</h4>
                 <label for="fname">Amount</label><br>
-                <input type="number" id="fname" name="amount" value="{{ product.price }}" readonly="True"><br>
+                <input type="number" id="fname" name="amount" value="{{ singleproduct.price }}" readonly="True"><br>
                 <label for="Email">Email:</label><br>
-                <input type="email" name="email" value="{{ request.user}}" readonly="True" id="lname">
+                <input type="email" name="email" value="{{ request.user.email}}" readonly="True" id="lname">
                 <p>
                     <input class="btn btn-primary" type="submit" value="submit">
                 </p>

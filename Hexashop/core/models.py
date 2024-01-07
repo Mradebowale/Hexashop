@@ -17,7 +17,7 @@ class Payment(models.Model):
     def __str__(self):
         return f"payment {self.amount}"
     def amount_value(self):
-        return self.amount * 100
+        return self.amount * 1000
     
     def save(self, *args, **kwargs):
         while not self.ref:
